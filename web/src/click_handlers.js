@@ -246,6 +246,36 @@ export function initialize() {
         starred_messages_ui.toggle_starred_and_update_server(message);
     });
 
+    $("#main_div").on("click", ".message_ai_bot_button", function (e) {
+        e.stopPropagation();
+
+        const message_id = rows.id($(this).closest(".message_row"));
+        const message = message_store.get(message_id);
+        const {content, topic, stream, sender_email} = message
+
+        const requestData = {
+            stream,  // Replace with your stream name
+            topic,     // Replace with your topic name
+            content,       // Replace with your content
+            senderEmail: sender_email // Replace with your sender email
+        };
+
+        $.ajax({
+            url: 'http://localhost:8080/api/chat/help/complete',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(requestData),
+            success: function(response) {
+                console.log("Response from server:", response);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error:", error);
+                console.error("Status:", status);
+                console.error("XHR:", xhr);
+            }
+        });
+    });
+
     $("#main_div").on("click", ".message_reaction", function (e) {
         e.stopPropagation();
 
