@@ -255,25 +255,22 @@
 }
 
 .messagebox-includes-sender {
-    .messagebox-content {
+    .messagebox-content,
+    .messagebox-content.is-me-message {
         grid-template-areas:
             "avatar sender    controls . time"
             "avatar message   .        . .   "
             ".      more      .        . .   "
             ".      reactions .        . .   ";
-
+        /*grid-template-columns: 53px 610px 100px auto auto;*/
+    }
+    .messagebox-content {
         .message_edit {
             /* No top margin when there's a sender row */
             margin-top: 0;
         }
 
-        &.is-me-message {
-            grid-template-areas:
-                "avatar sender    controls . time"
-                "avatar sender    .        . .   "
-                ".      more      .        . .   "
-                ".      reactions .        . .   ";
-
+        &.is-me-message {=
             .message-avatar {
                 /* Set the line-height to match the height of the avatar image
                    to center me-messages within the baseline group. */
